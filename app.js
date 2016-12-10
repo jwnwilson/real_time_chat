@@ -8,8 +8,8 @@ var port = 3000;
 app.engine('.hbs', exphbs({
   defaultLayout: 'main',
   extname: '.hbs',
-  layoutsDir='views/layouts/',
-  partialsDir='views/partials/'
+  layoutsDir: 'views/layouts/',
+  partialsDir: 'views/partials/'
 }));
 app.set('view engine', '.hbs');
 //app.enable('view cache');
