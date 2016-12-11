@@ -24,4 +24,4 @@ window.onload = function() {
         socket.emit('send', { message: text });
     };
 
-}
+};
