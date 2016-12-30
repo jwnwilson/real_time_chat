@@ -1,7 +1,9 @@
 var express = require('express');
 var exphbs = require('express-handlebars');
 var socket = require('socket.io');
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
+var session = require('express-session');
+var cookieParser = require('cookie-parser');
 
 var models = require("./models");
 var routes = require('./routes/index');
@@ -17,8 +19,16 @@ app.engine('.hbs', exphbs({
   partialsDir: 'views/partials/'
 }));
 app.set('view engine', '.hbs');
+app.set('trust proxy', 1); // trust first proxy
+app.use(cookieParser());
+app.use(session({
+  secret: 'super_secret_squrriel',
+  cookie: {
+    maxAge: 60000
+  }
+}));
 //app.enable('view cache');
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/static', express.static(__dirname + '/static'));
 app.use('/', routes);
 app.use('/users', users);

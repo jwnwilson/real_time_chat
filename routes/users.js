@@ -4,9 +4,13 @@ var router  = express.Router();
 
 router.post('/create', function(req, res) {
   models.User.create({
-    username: req.body.username
-  }).then(function() {
-    res.redirect('/');
+    username: req.body.username,
+    active: 0
+  }).then(function(user) {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({
+      'message': 'success'
+    }));
   });
 });
 
@@ -16,7 +20,67 @@ router.get('/:user_id/destroy', function(req, res) {
       id: req.params.user_id
     }
   }).then(function() {
-    res.redirect('/');
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({
+      'message': 'success'
+    }));
+  });
+});
+
+router.post('/signin', function(req, res) {
+  models.User.find({
+    username: req.body.username
+  }).then(function(user) {
+    if(user){
+      req.session.user = user;
+      req.session.save();
+      user.active = 1;
+      user
+        .save()
+        .then(function(user){
+          res.redirect('/');
+        })
+        .error(function(user){
+          res.setHeader('Content-Type', 'application/json');
+          res.send(JSON.stringify({
+            'error': 'User not active.'
+          }));
+        });
+    }
+    else{
+      res.setHeader('Content-Type', 'application/json');
+      res.send(JSON.stringify({
+        'error': 'User not found.'
+      }));
+    }
+  });
+});
+
+router.post('/signout', function(req, res) {
+  models.User.find({
+    username: req.body.username
+  }).then(function(user) {
+    if(user){
+      req.session.user = undefined;
+      user.active = 0;
+      user
+        .save()
+        .then(function(user){
+          res.redirect('/');
+        })
+        .error(function(user){
+          res.setHeader('Content-Type', 'application/json');
+          res.send(JSON.stringify({
+            'error': 'User still active.'
+          }));
+        });
+    }
+    else{
+      res.setHeader('Content-Type', 'application/json');
+      res.send(JSON.stringify({
+        'error': 'User not found.'
+      }));
+    }
   });
 });
 
