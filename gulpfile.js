@@ -10,6 +10,11 @@ var dist_dir = 'static/';
 var dist_style_dir = dist_dir + 'css';
 var dist_scripts_dir = dist_dir + 'js';
 var dist_images_dir = dist_dir + 'images';
+var dependencies_dirs = [
+  'bower_components/requirejs/require.js',
+  'bower_components/jquery/dist/jquery.min.js',
+  'bower_components/socket.io-client/dist/socket.io.min.js'
+];
 
 // Load plugins
 var gulp = require('gulp'),
@@ -25,6 +30,8 @@ var gulp = require('gulp'),
     cache = require('gulp-cache'),
     livereload = require('gulp-livereload'),
     del = require('del');
+    rjs = require('gulp-requirejs');
+    concat = require('gulp-concat');
 
 // Styles
 gulp.task('styles', function() {
@@ -42,13 +49,38 @@ gulp.task('scripts', function() {
   return gulp.src(scripts_dir + '**/*.js')
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
-    .pipe(concat('main.js'))
+    //.pipe(concat('main.js'))
     .pipe(gulp.dest(dist_scripts_dir))
     .pipe(rename({ suffix: '.min' }))
     .pipe(uglify())
     .pipe(gulp.dest(dist_scripts_dir))
     .pipe(notify({ message: 'Scripts task complete' }));
 });
+
+gulp.task('require-optimizer', function requireOptimizer() {
+  return rjs({
+    baseUrl: dist_scripts_dir,
+    paths: {
+      jquery: 'lib/jquery.min',
+      socketio: 'lib/socket.io.min'
+    },
+    // name: 'main',
+    include: [
+      'main',
+      'chat'
+    ],
+    out: 'optimized.js'
+  })
+  .pipe(gulp.dest(dist_scripts_dir));
+});
+
+// Dependencies
+gulp.task('dependencies', function() {
+  return gulp.src(dependencies_dirs)
+    .pipe(gulp.dest(dist_scripts_dir + '/lib/'))
+    .pipe(notify({ message: 'Dependencies task complete' }));
+})
+
 
 // Images
 gulp.task('images', function() {
@@ -65,7 +97,7 @@ gulp.task('clean', function() {
 
 // Default task
 gulp.task('default', ['clean'], function() {
-  gulp.start('styles', 'scripts', 'images');
+  gulp.start('dependencies', 'styles', 'scripts', 'require-optimizer', 'images');
 });
 
 // Watch
