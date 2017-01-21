@@ -1,6 +1,7 @@
 var models  = require('../models');
 var express = require('express');
 var router  = express.Router();
+var prod = true;
 
 router.get('/', function(req, res) {
   models.User.findAll().then(
@@ -12,7 +13,8 @@ router.get('/', function(req, res) {
       res.render('home', {
         title: 'Real time chat',
         users: users,
-        user: user
+        user: user,
+        prod: prod
       });
     });
 });

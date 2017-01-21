@@ -3,9 +3,11 @@
 <head>
     <meta charset="utf-8">
     <title>{{title}}</title>
+    {{#if prod}}
     <script data-main="static/js/optimized" src="static/js/lib/require.js"></script>
-    <!--script src="static/js/main.min.js"></script>
-    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script-->
+    {{else}}
+    <script data-main="static/js/main" src="static/js/lib/require.js"></script>
+    {{/if}}
     <link rel="stylesheet" type="text/css" href="static/css/main.min.css"/>
 </head>
 <body>

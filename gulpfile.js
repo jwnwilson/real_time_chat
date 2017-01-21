@@ -7,6 +7,7 @@ var style_dir = src_dir + 'styles/';
 var scripts_dir = src_dir + 'scripts/';
 var images_dir = src_dir + 'images/';
 var dist_dir = 'static/';
+var build_dir = 'build/';
 var dist_style_dir = dist_dir + 'css';
 var dist_scripts_dir = dist_dir + 'js';
 var dist_images_dir = dist_dir + 'images';
@@ -49,27 +50,25 @@ gulp.task('scripts', function() {
   return gulp.src(scripts_dir + '**/*.js')
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
-    //.pipe(concat('main.js'))
-    .pipe(gulp.dest(dist_scripts_dir))
-    .pipe(rename({ suffix: '.min' }))
-    .pipe(uglify())
     .pipe(gulp.dest(dist_scripts_dir))
     .pipe(notify({ message: 'Scripts task complete' }));
 });
 
-gulp.task('require-optimizer', function requireOptimizer() {
+gulp.task('require-optimizer', ['scripts'], function requireOptimizer() {
   return rjs({
     baseUrl: dist_scripts_dir,
     paths: {
       jquery: 'lib/jquery.min',
       socketio: 'lib/socket.io.min'
     },
-    // name: 'main',
+    //name: 'main',
     include: [
       'main',
       'chat'
     ],
-    out: 'optimized.js'
+    optimize: "uglify",
+    out: 'optimized.js',
+    removeCombined: true
   })
   .pipe(gulp.dest(dist_scripts_dir));
 });
