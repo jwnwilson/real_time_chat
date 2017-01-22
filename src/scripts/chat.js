@@ -2,8 +2,8 @@
  * Chat controller
  */
 define([
-  'jquery',
-  'socketio'
+  "jquery",
+  "socketio"
 ],
 function ChatController($, socketio) {
   /**
@@ -20,17 +20,29 @@ function ChatController($, socketio) {
    */
   Ctrl.prototype.setupChat = function setupChat() {
     var messages = [];
-    var socket = socketio.connect('http://localhost:3000');
+    var socket = socketio.connect("http://localhost:3000");
     var field = document.getElementById("field");
     var sendButton = document.getElementById("send");
     var content = document.getElementById("content");
 
-    socket.on('message', function (data) {
+    socket.on("message", function (data) {
         if(data.message) {
-            messages.push(data.message);
-            var html = '';
+            var currentUser = $("#users").data("user");
+            var html = "";
+            var prefix = "";
+            if(data.user == "system"){
+              prefix = "";
+            }
+            else if(currentUser){
+              prefix = currentUser + ": ";
+            }
+            else if(currentUser === undefined){
+              prefix = "Anonymous: ";
+            }
+            messages.push(prefix + data.message);
+
             for(var i=0; i<messages.length; i++) {
-                html += messages[i] + '<br />';
+              html += messages[i] + "<br />";
             }
             content.innerHTML = html;
         } else {
@@ -40,7 +52,7 @@ function ChatController($, socketio) {
 
     sendButton.onclick = function() {
         var text = field.value;
-        socket.emit('send', { message: text });
+        socket.emit("send", { message: text });
     };
   };
 

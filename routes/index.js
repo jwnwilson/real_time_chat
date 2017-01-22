@@ -1,4 +1,5 @@
 var models  = require('../models');
+var config = require('../config/config');
 var express = require('express');
 var router  = express.Router();
 var prod = true;
@@ -14,7 +15,7 @@ router.get('/', function(req, res) {
         title: 'Real time chat',
         users: users,
         user: user,
-        prod: prod
+        prod: config.env
       });
     });
 });

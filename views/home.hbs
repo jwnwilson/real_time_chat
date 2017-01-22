@@ -1,5 +1,9 @@
 <div>
-  <div id='users'>
+  {{#if user}}
+    <div id='users' data-user="{{user.username}}">
+  {{else}}
+    <div id='users'>
+  {{/if}}
     <h3>Active Users:</h3>
     {{#each users}}
       <p>{{username}}</p>
