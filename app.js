@@ -4,6 +4,7 @@ var socket = require('socket.io');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
+var passport = require('./auth');
 
 var models = require("./models");
 var routes = require('./routes/index');
@@ -32,6 +33,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/static', express.static(__dirname + '/static'));
 app.use('/', routes);
 app.use('/users', users);
+// Initialize Passport and restore authentication state, if any, from the
+// session.
+app.use(passport.initialize());
+app.use(passport.session());
 
 function start_server(){
   //app.listen(port);
