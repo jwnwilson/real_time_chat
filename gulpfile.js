@@ -11,10 +11,14 @@ var build_dir = 'build/';
 var dist_style_dir = dist_dir + 'css';
 var dist_scripts_dir = dist_dir + 'js';
 var dist_images_dir = dist_dir + 'images';
-var dependencies_dirs = [
+var dependencies_js_dirs = [
   'bower_components/requirejs/require.js',
   'bower_components/jquery/dist/jquery.min.js',
-  'bower_components/socket.io-client/dist/socket.io.min.js'
+  'bower_components/socket.io-client/dist/socket.io.min.js',
+  'bower_components/bootstrap/dist/js/bootstrap.min.js'
+];
+var dependencies_css_dirs = [
+  'bower_components/bootstrap/dist/css/bootstrap.min.css'
 ];
 
 // Load plugins
@@ -36,7 +40,7 @@ var gulp = require('gulp'),
 
 // Styles
 gulp.task('styles', function() {
-  return sass(style_dir + 'main.scss', { style: 'expanded' })
+  return sass(style_dir + '**/*.scss', { style: 'expanded' })
     .pipe(autoprefixer('last 2 version'))
     .pipe(gulp.dest(dist_style_dir))
     .pipe(rename({ suffix: '.min' }))
@@ -75,11 +79,12 @@ gulp.task('require-optimizer', ['scripts'], function requireOptimizer() {
 
 // Dependencies
 gulp.task('dependencies', function() {
-  return gulp.src(dependencies_dirs)
+  var js_dependancies = gulp.src(dependencies_js_dirs)
     .pipe(gulp.dest(dist_scripts_dir + '/lib/'))
+  return css_dependancies = gulp.src(dependencies_css_dirs)
+    .pipe(gulp.dest(dist_style_dir))
     .pipe(notify({ message: 'Dependencies task complete' }));
 })
-
 
 // Images
 gulp.task('images', function() {

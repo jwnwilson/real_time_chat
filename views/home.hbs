@@ -12,20 +12,21 @@
   {{#if user}}
     <h3>Current user: {{user.username}}</h3>
   {{/if}}
-  <div class='text-box' id='content'></div>
   {{#if user}}
   <form method="post" action="/users/signout">
     <input type="hidden" id='username_signout' name='username' value='{{user.username}}' style='width:350px'></input>
-    <input id='send_signout' type='submit' value='signout' style='width:350px'></input>
+    <input id='send_signout' type='submit' value='sign out' style='width:350px'></input>
   </form>
   {{else}}
   <form method="post" action="/users/signin">
     <input id='username_signin' name='username' style='width:350px'></input>
-    <input id='send_signin' type='submit' value='signin' style='width:350px'></input>
+    <input id='send_signin' type='submit' value='sign in' style='width:350px'></input>
   </form>
   {{/if}}
-  <form action="">
-    <input id='field' style='width:350px'></input>
-    <input id='send' type='button' value='send' style='width:350px'></input>
-  </form>
+  <div class='text-box' id='content'></div>
+    <form action="#">
+      <input id='field' style='width:350px'></input>
+      <input id='send' type='button' value='send' style='width:350px'></input>
+    </form>
+  </div>
 </div>

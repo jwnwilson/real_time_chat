@@ -14,6 +14,7 @@ require.config({
   paths: {
     jquery: 'lib/jquery.min',
     socketio: 'lib/socket.io.min',
+    bootstrap: 'lib/bootstrap.min'
   }
 });
 
