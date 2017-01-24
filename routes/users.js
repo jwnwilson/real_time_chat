@@ -1,10 +1,12 @@
 var models  = require('../models');
 var express = require('express');
 var router  = express.Router();
+var passport = require('../auth');
 
 router.post('/create', function(req, res) {
   models.User.create({
     username: req.body.username,
+    password: req.body.password,
     active: 0
   }).then(function(user) {
     res.setHeader('Content-Type', 'application/json');
@@ -26,6 +28,18 @@ router.get('/:user_id/destroy', function(req, res) {
     }));
   });
 });
+
+router.post('/login',
+  passport.authenticate('local', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/');
+  });
+
+router.get('/logout',
+  function(req, res){
+    req.logout();
+    res.redirect('/');
+  });
 
 router.post('/signin', function(req, res) {
   models.User.find({

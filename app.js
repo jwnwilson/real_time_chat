@@ -28,15 +28,16 @@ app.use(session({
     maxAge: 60000
   }
 }));
+// Initialize Passport and restore authentication state, if any, from the
+// session.
+app.use(passport.initialize());
+app.use(passport.session());
 //app.enable('view cache');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/static', express.static(__dirname + '/static'));
 app.use('/', routes);
 app.use('/users', users);
-// Initialize Passport and restore authentication state, if any, from the
-// session.
-app.use(passport.initialize());
-app.use(passport.session());
+
 
 function start_server(){
   //app.listen(port);
