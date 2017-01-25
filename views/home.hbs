@@ -1,8 +1,8 @@
 <div>
   {{#if user}}
-    <div id='users' data-user="{{user.username}}">
+    <div id='users' data-user="{{user.username}}" class='user-list'>
   {{else}}
-    <div id='users'>
+    <div id='users' class='user-list'>
   {{/if}}
     <h3>Active Users:</h3>
     {{#each users}}
@@ -12,17 +12,25 @@
   {{#if user}}
     <h3>Current user: {{user.username}}</h3>
   {{/if}}
-  {{#if user}}
-  <form method="post" action="/users/signout">
-    <input type="hidden" id='username_signout' name='username' value='{{user.username}}' style='width:350px'></input>
-    <input id='send_signout' type='submit' value='sign out' style='width:350px'></input>
-  </form>
-  {{else}}
-  <form method="post" action="/users/signin">
-    <input id='username_signin' name='username' style='width:350px'></input>
-    <input id='send_signin' type='submit' value='sign in' style='width:350px'></input>
-  </form>
-  {{/if}}
+  <div class='sign-in-box'>
+    {{#if user}}
+    <form method="get" action="/users/logout">
+      <input type="hidden" id='username_signout' name='username' value='{{user.username}}' class='input-text'></input>
+      <input id='send_signout' type='submit' value='sign out' class='input-text'></input>
+    </form>
+    {{else}}
+    <form method="post" action="/users/login">
+      <label class='label-text'>username:</label>
+      <input id='username_signin' name='username' class='input-text'></input>
+      <br class='clear'>
+      <label class='label-text'>password:</label>
+      <input id='username_password' name='password' type='password' class='input-text'></input>
+      <br class='clear'>
+      <input id='send_signin' type='submit' value='sign in' class='input-button'></input>
+    </form>
+    {{/if}}
+  </div>
+  <br class='clear'>
   <div class='text-box' id='content'></div>
     <form action="#">
       <input id='field' style='width:350px'></input>

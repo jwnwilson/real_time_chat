@@ -7,14 +7,14 @@ module.exports = function(sequelize, DataTypes) {
   },
   {
     classMethods: {
-      nextTick: function(id, cb) {
+      nextTick: function(id) {
         return this.findById(id).then(function(user) {
-          cb(null, user);
+          return user;
         });
       },
-      findByUsername: function(username, cb) {
+      findByUsername: function(username) {
         return this.findOne({ where: { username: username}}).then(function(user) {
-          cb(null, user);
+          return user;
         });
       }
     }

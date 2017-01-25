@@ -2,7 +2,6 @@ var models  = require('../models');
 var config = require('../config/config');
 var express = require('express');
 var router  = express.Router();
-var passport = require('../auth');
 
 router.get('/', function(req, res) {
   models.User.findAll().then(

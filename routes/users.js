@@ -1,7 +1,7 @@
 var models  = require('../models');
 var express = require('express');
 var router  = express.Router();
-var passport = require('../auth');
+var passport = require('passport');
 
 router.post('/create', function(req, res) {
   models.User.create({
@@ -30,7 +30,7 @@ router.get('/:user_id/destroy', function(req, res) {
 });
 
 router.post('/login',
-  passport.authenticate('local', { failureRedirect: '/login' }),
+  passport.authenticate('local', { failureRedirect: '/' }),
   function(req, res) {
     res.redirect('/');
   });
@@ -40,62 +40,5 @@ router.get('/logout',
     req.logout();
     res.redirect('/');
   });
-
-router.post('/signin', function(req, res) {
-  models.User.find({
-    username: req.body.username
-  }).then(function(user) {
-    if(user){
-      req.session.user = user;
-      req.session.save();
-      user.active = 1;
-      user
-        .save()
-        .then(function(user){
-          res.redirect('/');
-        })
-        .error(function(user){
-          res.setHeader('Content-Type', 'application/json');
-          res.send(JSON.stringify({
-            'error': 'User not active.'
-          }));
-        });
-    }
-    else{
-      res.setHeader('Content-Type', 'application/json');
-      res.send(JSON.stringify({
-        'error': 'User not found.'
-      }));
-    }
-  });
-});
-
-router.post('/signout', function(req, res) {
-  models.User.find({
-    username: req.body.username
-  }).then(function(user) {
-    if(user){
-      req.session.user = undefined;
-      user.active = 0;
-      user
-        .save()
-        .then(function(user){
-          res.redirect('/');
-        })
-        .error(function(user){
-          res.setHeader('Content-Type', 'application/json');
-          res.send(JSON.stringify({
-            'error': 'User still active.'
-          }));
-        });
-    }
-    else{
-      res.setHeader('Content-Type', 'application/json');
-      res.send(JSON.stringify({
-        'error': 'User not found.'
-      }));
-    }
-  });
-});
 
 module.exports = router;
