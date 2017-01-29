@@ -42,7 +42,7 @@ passport.use(new Strategy(
       if (user == null) {
         return cb(null, false, { message: 'Incorrect credentials.' });
       }
-      if(user.password == password){
+      if(user.checkPassword(password)){
         return cb(null, user);
       }
 
@@ -58,8 +58,8 @@ passport.serializeUser(function(user, cb) {
 
 passport.deserializeUser(function(id, cb) {
   db.User.findById(id).then(function (user) {
-    if (user == null) { 
-      cb(null, false, { message: 'User not found.' }); 
+    if (user == null) {
+      cb(null, false, { message: 'User not found.' });
     }
     cb(null, user);
   });
@@ -83,7 +83,10 @@ function start_server(){
         user: 'system'
       });
       socket.on('send', function (data) {
-          io.sockets.emit('message', data);
+        if(data.username){
+          db.User.setActive(data.username, new Date());
+        }
+        io.sockets.emit('message', data);
       });
   });
 }

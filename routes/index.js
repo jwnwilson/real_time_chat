@@ -4,7 +4,13 @@ var express = require('express');
 var router  = express.Router();
 
 router.get('/', function(req, res) {
-  models.User.findAll().then(
+  models.User.findAll({
+    where: {
+      activeDate: {
+        $gt: new Date(new Date() - 5 * 60 * 1000)
+      }
+    }
+  }).then(
     function(users) {
       var user;
       if(req.user){

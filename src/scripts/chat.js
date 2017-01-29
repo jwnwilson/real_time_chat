@@ -26,8 +26,8 @@ function ChatController($, socketio) {
     var content = document.getElementById("content");
 
     socket.on("message", function (data) {
+        var currentUser = $("#users").data("user");
         if(data.message) {
-            var currentUser = $("#users").data("user");
             var html = "";
             var prefix = "";
             if(data.user == "system"){
@@ -51,8 +51,12 @@ function ChatController($, socketio) {
     });
 
     sendButton.onclick = function() {
+        var currentUser = $("#users").data("user");
         var text = field.value;
-        socket.emit("send", { message: text });
+        socket.emit("send", {
+          message: text,
+          username: currentUser
+        });
     };
   };
 
