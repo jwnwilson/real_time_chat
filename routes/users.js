@@ -4,15 +4,21 @@ var router  = express.Router();
 var passport = require('passport');
 
 router.post('/create', function(req, res) {
-  models.User.create({
-    username: req.body.username,
-    activeDate: null
-  }).then(function(user) {
-    user.setPassword(req.body.password);
-    res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify({
-      'message': 'success'
-    }));
+  models.User.findByUsername(req.body.username).then(function(user){
+    if(user == null){
+      models.User.create({
+        username: req.body.username,
+        activeDate: null
+      }).then(function(user) {
+        user.setPassword(req.body.password);
+        req.flash('info', 'New user successfully created.');
+        res.redirect('/');
+      });
+    }
+    else{
+      req.flash('info', 'User already exists.');
+      res.redirect('/');
+    }
   });
 });
 
@@ -22,10 +28,8 @@ router.get('/:user_id/destroy', function(req, res) {
       id: req.params.user_id
     }
   }).then(function() {
-    res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify({
-      'message': 'success'
-    }));
+    req.flash('info', 'User deleted.');
+    res.redirect('/');
   });
 });
 

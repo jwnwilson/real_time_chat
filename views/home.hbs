@@ -19,7 +19,8 @@
       <input id='send_signout' type='submit' value='sign out' class='input-text'></input>
     </form>
     {{else}}
-    <form method="post" action="/users/login">
+    <form class="sign-in-form" method="post" action="/users/login">
+      <h3>Sign in</h3>
       <label class='label-text'>username:</label>
       <input id='username_signin' name='username' class='input-text'></input>
       <br class='clear'>
@@ -27,6 +28,16 @@
       <input id='username_password' name='password' type='password' class='input-text'></input>
       <br class='clear'>
       <input id='send_signin' type='submit' value='sign in' class='input-button'></input>
+    </form>
+    <form class="sign-in-form" method="post" action="/users/create">
+      <h3>Register</h3>
+      <label class='label-text'>username:</label>
+      <input id='username_register' name='username' class='input-text'></input>
+      <br class='clear'>
+      <label class='label-text'>password:</label>
+      <input id='password_register' name='password' type='password' class='input-text'></input>
+      <br class='clear'>
+      <input id='send_register' type='submit' value='register' class='input-button'></input>
     </form>
     {{/if}}
   </div>

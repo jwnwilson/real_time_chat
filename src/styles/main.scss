@@ -52,7 +52,11 @@ form button {
 }
 .sign-in-box{
   float: left;
-  width: 40%;
+  width: 500px;
+}
+.sign-in-form{
+  float: left;
+  width: 250px;
 }
 .clear{
   clear: both;
@@ -62,9 +66,12 @@ form button {
 }
 .input-button{
   width: 200px;
-  margin-left: 102.5px;
   margin-top: 5px;
 }
 .label-text{
   width:100px;
+}
+.messages{
+  display:table;
+  margin:0 auto;
 }

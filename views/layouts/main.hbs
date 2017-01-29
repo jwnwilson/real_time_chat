@@ -31,7 +31,11 @@
       </div><!--/.nav-collapse -->
     </div>
   </nav>
-
+  {{#if messages.info}}
+  <div class="messages">
+    <span>{{messages.info}}</span>
+  </div>
+  {{/if}}
   <div class="container">
     {{{body}}}
   </div>
