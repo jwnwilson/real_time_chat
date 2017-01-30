@@ -74,8 +74,7 @@ gulp.task('require-optimizer', ['scripts'], function requireOptimizer() {
     optimize: "uglify",
     out: 'optimized.js',
     removeCombined: true
-  })
-  .pipe(gulp.dest(dist_scripts_dir));
+  }).pipe(gulp.dest(dist_scripts_dir));
 });
 
 // Dependencies
