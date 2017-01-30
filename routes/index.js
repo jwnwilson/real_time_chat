@@ -20,7 +20,8 @@ router.get('/', function(req, res) {
         title: 'Real time chat',
         users: users,
         user: user,
-        prod: process.env.NODE_ENV == "production"
+        prod: process.env.NODE_ENV == "production",
+        port: (process.env.PORT || 5000)
       });
     });
 });
