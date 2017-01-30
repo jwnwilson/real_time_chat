@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "postinstall": "gulp",
+    "postinstall": "./node_modules/.bin/bower install --allow-root && ./node_modules/.bin/gulp",
     "test": "mocha --watch --debug tests"
   },
   "engines": {
@@ -49,6 +49,7 @@
     "gulp-notify": "^2.2.0",
     "gulp-rename": "^1.2.2",
     "gulp-ruby-sass": "^2.1.1",
+    "gulp-sass": "^3.1.0",
     "gulp-uglify": "^2.0.0",
     "jshint": "^2.9.4",
     "sinon": "^1.17.7"
