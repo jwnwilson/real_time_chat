@@ -52,7 +52,7 @@
   },
   "scripts": {
     "start": "node app.js",
-    "postinstall": "./node_modules/.bin/bower install --allow-root && ./node_modules/.bin/gulp",
+    "postinstall": "./node_modules/.bin/bower install && ./node_modules/.bin/gulp default",
     "test": "./node_modules/.bin/mocha --watch --debug tests"
   }
 }

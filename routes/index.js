@@ -20,7 +20,7 @@ router.get('/', function(req, res) {
         title: 'Real time chat',
         users: users,
         user: user,
-        prod: config.prod
+        prod: process.env.NODE_ENV == "production"
       });
     });
 });
