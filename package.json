@@ -53,6 +53,6 @@
   "scripts": {
     "start": "node app.js",
     "postinstall": "./node_modules/.bin/bower install --allow-root && ./node_modules/.bin/gulp",
-    "test": "mocha --watch --debug tests"
+    "test": "./node_modules/.bin/mocha --watch --debug tests"
   }
 }
