@@ -1,17 +1,17 @@
 {
   "development": {
-    "username": "root",
+    "username": "postgres",
     "password": null,
     "database": "real_time_chat",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "postgres"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "real_time_chat",
+    "username": "postgres",
+    "password": "4d62ae81e8c740a7994dcf565133401b9231d8bfb5232f7f6033763262114b04",
+    "database": "hwcnlclduoapfn",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "postgres"
   },
   "prod": false
 }
