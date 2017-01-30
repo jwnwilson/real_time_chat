@@ -1,6 +1,6 @@
 /*!
  * gulp
- * $ npm install gulp-ruby-sass gulp-autoprefixer gulp-cssnano gulp-jshint gulp-concat gulp-uglify gulp-imagemin gulp-notify gulp-rename gulp-livereload gulp-cache del --save-dev
+ * $ npm install gulp-autoprefixer gulp-cssnano gulp-jshint gulp-concat gulp-uglify gulp-imagemin gulp-notify gulp-rename gulp-livereload gulp-cache del --save-dev
  */
 var src_dir = 'src/';
 var style_dir = src_dir + 'styles/';
@@ -23,7 +23,7 @@ var dependencies_css_dirs = [
 
 // Load plugins
 var gulp = require('gulp'),
-    sass = require('gulp-ruby-sass'),
+    sass = require('gulp-sass'),
     autoprefixer = require('gulp-autoprefixer'),
     cssnano = require('gulp-cssnano'),
     jshint = require('gulp-jshint'),
