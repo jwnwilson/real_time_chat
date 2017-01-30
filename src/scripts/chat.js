@@ -21,10 +21,10 @@ function ChatController($, socketio) {
   Ctrl.prototype.setupChat = function setupChat() {
     var messages = [];
     if(ENV == 'production'){
-      var socket = socketio.connect("https://real-time-chat-nw.herokuapp.com:3000");
+      var socket = socketio.connect("https://real-time-chat-nw.herokuapp.com";
     }
     else{
-      var socket = socketio.connect("http://localhost:3000");
+      var socket = socketio.connect("http://localhost:" + PORT);
     }
     var field = document.getElementById("field");
     var sendButton = document.getElementById("send");
