@@ -8,7 +8,6 @@ var session = require('express-session');
 
 var auth = require('./core/auth');
 var db = require('./models');
-var models = require('./models');
 var routes = require('./routes/index');
 var users  = require('./routes/users');
 var websocket = require('./core/websocket');
@@ -47,7 +46,7 @@ app.use('/', routes);
 app.use('/users', users);
 
 // sync() will create all table if they doesn't exist in database
-models.sequelize.sync().then(function () {
+db.sequelize.sync().then(function () {
   // Setup websockets for chat
   websocket.startServer(app, port);
 });
