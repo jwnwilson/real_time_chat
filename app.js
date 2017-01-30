@@ -13,7 +13,7 @@ var users  = require('./routes/users');
 var websocket = require('./core/websocket');
 
 var app = express();
-var port = 3000;
+var port = (process.env.PORT || 5000);
 
 app.engine('.hbs', exphbs({
   defaultLayout: 'main',
