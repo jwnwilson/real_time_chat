@@ -9,8 +9,8 @@ module.exports = {
 
     io.sockets.on('connection', function (socket) {
         socket.emit('message', {
-          message: 'welcome to the chat',
-          user: 'System'
+          message: 'Welcome to the chat',
+          username: 'System'
         });
         socket.on('send', function (data) {
           if(data.username){
