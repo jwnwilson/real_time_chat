@@ -32,7 +32,7 @@ function ChatController($, socketio) {
     var content = document.getElementById("content");
 
     socket.on("message", function (data) {
-        var currentUser = $("#users").data("user");
+        var currentUser = data.username;
         if(data.message) {
             var html = "";
             var prefix = "";
