@@ -1,4 +1,4 @@
-process.env.DATABASE_URL = 'mysql://root:@localhost:3306/test_real_time_chat';
+process.env.DATABASE_URL = 'postgres://postgres:ostmodern@localhost:5432/test_real_time_chat';
 var chai = require('chai');
 var db = require('./../models');
 var expect = chai.expect;

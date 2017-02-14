@@ -50,3 +50,5 @@ db.sequelize.sync().then(function () {
   // Setup websockets for chat
   websocket.startServer(app, port);
 });
+
+module.exports = app;
